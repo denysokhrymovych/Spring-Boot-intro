@@ -11,8 +11,12 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class BookShopApplication {
+    private final BookService bookService;
+
     @Autowired
-    private BookService bookService;
+    public BookShopApplication(BookService bookService) {
+        this.bookService = bookService;
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(BookShopApplication.class, args);
@@ -20,21 +24,18 @@ public class BookShopApplication {
 
     @Bean
     public CommandLineRunner commandLineRunner() {
-        return new CommandLineRunner() {
-            @Override
-            public void run(String... args) throws Exception {
-                Book book = new Book();
-                book.setTitle("Title");
-                book.setAuthor("Author");
-                book.setIsbn("978-3-16-148410-0");
-                book.setPrice(BigDecimal.valueOf(100));
-                book.setDescription("Description");
-                book.setCoverImage("Cover image");
+        return args -> {
+            Book book = new Book();
+            book.setTitle("Title");
+            book.setAuthor("Author");
+            book.setIsbn("978-3-16-148410-0");
+            book.setPrice(BigDecimal.valueOf(100));
+            book.setDescription("Description");
+            book.setCoverImage("Cover image");
 
-                bookService.save(book);
+            bookService.save(book);
 
-                System.out.println(bookService.findAll());
-            }
+            System.out.println(bookService.findAll());
         };
     }
 
