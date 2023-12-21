@@ -1,6 +1,5 @@
 package com.example.bookshop.exception;
 
-import com.example.bookshop.dto.ExceptionDto;
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -46,12 +45,12 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
     }
 
     @ExceptionHandler(RegistrationException.class)
-    public ResponseEntity<ExceptionDto> handleRegistrationException(RegistrationException ex) {
-        ExceptionDto exceptionDto = new ExceptionDto();
-        exceptionDto.setTimestamp(LocalDateTime.now());
-        exceptionDto.setStatus(HttpStatus.BAD_REQUEST);
-        exceptionDto.setMessage(ex.getMessage());
-        return new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Object> handleRegistrationException(RegistrationException ex) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("status", HttpStatus.BAD_REQUEST);
+        body.put("message", ex.getMessage());
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
     private String getErrorMessage(ObjectError e) {
