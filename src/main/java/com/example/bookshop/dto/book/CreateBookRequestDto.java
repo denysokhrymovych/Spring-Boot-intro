@@ -1,7 +1,7 @@
 package com.example.bookshop.dto.book;
 
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 import lombok.Data;
@@ -22,7 +22,7 @@ public class CreateBookRequestDto {
     private String isbn;
 
     @NotNull(message = "Price cannot be null")
-    @Min(0)
+    @Positive
     private BigDecimal price;
 
     private String description;
