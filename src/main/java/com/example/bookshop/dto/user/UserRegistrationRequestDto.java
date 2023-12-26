@@ -1,13 +1,13 @@
 package com.example.bookshop.dto.user;
 
-import com.example.bookshop.validation.FieldMatch;
+import com.example.bookshop.validation.PasswordFieldsMatch;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.hibernate.validator.constraints.Email;
 
 @Data
-@FieldMatch
+@PasswordFieldsMatch
 public class UserRegistrationRequestDto {
     @NotBlank(message = "Email cannot be null or blank")
     @Email
