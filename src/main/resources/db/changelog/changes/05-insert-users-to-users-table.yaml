@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-users-to-users-table
+      author: denys_okhrymovych
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: "bob@gmail.com"
+              - column:
+                  name: password
+                  value: "$2a$10$.cdYPjX/y1zzPl5p/xqyDO.qppsODcbRcq3b2u5Bg/4GdCL9FsKpy"
+              - column:
+                  name: first_name
+                  value: "Bob"
+              - column:
+                  name: last_name
+                  value: "Smith"
+              - column:
+                  name: shipping_address
+                  value: "Kyiv"
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: "alice@gmail.com"
+              - column:
+                  name: password
+                  value: "$2a$10$BTeBpmMifpj4UTUwQbXcUO03QRZyAfpCcwhIUJLg4QSMw4N11fKvq"
+              - column:
+                  name: first_name
+                  value: "Alice"
+              - column:
+                  name: last_name
+                  value: "Smith"
+              - column:
+                  name: shipping_address
+                  value: "Lviv"
