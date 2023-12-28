@@ -6,9 +6,9 @@ import jakarta.validation.ConstraintValidatorContext;
 import java.util.Objects;
 
 public class PasswordMatchesValidator implements
-        ConstraintValidator<FieldMatch, UserRegistrationRequestDto> {
+        ConstraintValidator<PasswordFieldsMatch, UserRegistrationRequestDto> {
     @Override
-    public void initialize(FieldMatch constraintAnnotation) {
+    public void initialize(PasswordFieldsMatch constraintAnnotation) {
     }
 
     @Override
