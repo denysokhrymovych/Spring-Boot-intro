@@ -1,7 +1,7 @@
 package com.example.bookshop.service.user;
 
 import com.example.bookshop.dto.user.UserRegistrationRequestDto;
-import com.example.bookshop.dto.user.UserResponseDto;
+import com.example.bookshop.dto.user.UserRegistrationResponseDto;
 import com.example.bookshop.exception.RegistrationException;
 import com.example.bookshop.mapper.UserMapper;
 import com.example.bookshop.model.Role;
@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public UserResponseDto register(
+    public UserRegistrationResponseDto register(
             UserRegistrationRequestDto requestDto) throws RegistrationException {
         if (userRepository.findByEmail(requestDto.getEmail()).isPresent()) {
             throw new RegistrationException("Cannot register user");
