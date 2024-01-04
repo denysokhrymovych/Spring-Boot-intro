@@ -1,9 +1,10 @@
 package com.example.bookshop.service.user;
 
 import com.example.bookshop.dto.user.UserRegistrationRequestDto;
-import com.example.bookshop.dto.user.UserResponseDto;
+import com.example.bookshop.dto.user.UserRegistrationResponseDto;
 import com.example.bookshop.exception.RegistrationException;
 
 public interface UserService {
-    UserResponseDto register(UserRegistrationRequestDto requestDto) throws RegistrationException;
+    UserRegistrationResponseDto register(UserRegistrationRequestDto requestDto)
+            throws RegistrationException;
 }
