@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
     @EntityGraph(attributePaths = "categories")
-    List<Book> findAllByCategoryId(Long categoryId);
+    List<Book> findAllByCategoriesId(Long categoryId);
 
     @EntityGraph(attributePaths = "categories")
     Optional<Book> findById(Long id);
