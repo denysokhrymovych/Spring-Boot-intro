@@ -1,11 +1,16 @@
 package com.example.bookshop.service.book;
 
 import com.example.bookshop.dto.book.BookDto;
+import com.example.bookshop.dto.book.BookDtoWithoutCategoryIds;
 import com.example.bookshop.dto.book.CreateBookRequestDto;
 import com.example.bookshop.exception.EntityNotFoundException;
 import com.example.bookshop.mapper.BookMapper;
 import com.example.bookshop.model.Book;
+import com.example.bookshop.model.Category;
 import com.example.bookshop.repository.BookRepository;
+import com.example.bookshop.repository.CategoryRepository;
+import jakarta.transaction.Transactional;
+import java.util.HashSet;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -16,8 +21,10 @@ import org.springframework.stereotype.Service;
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
+    private final CategoryRepository categoryRepository;
 
     @Override
+    @Transactional
     public List<BookDto> getAll(Pageable pageable) {
         return bookRepository.findAll(pageable).stream()
                 .map(bookMapper::toDto)
@@ -33,8 +40,17 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public List<BookDtoWithoutCategoryIds> findAllByCategoryId(Long categoryId) {
+        return bookRepository.findAllByCategoryId(categoryId).stream()
+                .map(bookMapper::toDtoWithoutCategoryIds)
+                .toList();
+    }
+
+    @Override
     public BookDto createBook(CreateBookRequestDto requestDto) {
         Book book = bookMapper.toModel(requestDto);
+        List<Category> categories = categoryRepository.findAllById(requestDto.getCategoryIds());
+        book.setCategories(new HashSet<>(categories));
         return bookMapper.toDto(bookRepository.save(book));
     }
 
