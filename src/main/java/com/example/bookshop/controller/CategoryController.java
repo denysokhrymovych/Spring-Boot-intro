@@ -59,14 +59,15 @@ public class CategoryController {
         return categoryService.getById(id);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create a new category", description = "Create a new category")
     public CategoryResponseDto createCategory(@RequestBody @Valid CategoryRequestDto requestDto) {
         return categoryService.save(requestDto);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     @Operation(summary = "Update a specific category", description = "Update a specific category")
     public CategoryResponseDto updateCategory(
@@ -75,7 +76,7 @@ public class CategoryController {
         return categoryService.update(id, requestDto);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete a specific category", description = "Delete a specific category")

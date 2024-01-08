@@ -23,6 +23,7 @@ public class Category {
     private Long id;
     @Column(nullable = false)
     private String name;
+    @Column
     private String description;
     @Column(nullable = false)
     private boolean isDeleted = false;

@@ -1,0 +1,51 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-to-books-categories-table
+      author: denys_okhrymovych
+      preConditions:
+        - sqlCheck:
+            expectedResult: 1
+            sql: SELECT COUNT(*) FROM books WHERE title='Pride and Prejudice'
+        - sqlCheck:
+            expectedResult: 1
+            sql: SELECT COUNT(*) FROM books WHERE title='Dune'
+        - sqlCheck:
+            expectedResult: 1
+            sql: SELECT COUNT(*) FROM books WHERE title='Clean Code'
+        - sqlCheck:
+            expectedResult: 1
+            sql: SELECT COUNT(*) FROM categories WHERE name='Classic literature'
+        - sqlCheck:
+            expectedResult: 1
+            sql: SELECT COUNT(*) FROM categories WHERE name='Science fiction'
+        - sqlCheck:
+            expectedResult: 1
+            sql: SELECT COUNT(*) FROM categories WHERE name='Programming'
+      changes:
+        - insert:
+            tableName: books_categories
+            columns:
+              - column:
+                  name: book_id
+                  valueComputed: (SELECT id FROM books WHERE title='Pride and Prejudice')
+              - column:
+                  name: category_id
+                  valueComputed: (SELECT id FROM categories WHERE name='Classic literature')
+        - insert:
+            tableName: books_categories
+            columns:
+              - column:
+                  name: book_id
+                  valueComputed: (SELECT id FROM books WHERE title='Dune')
+              - column:
+                  name: category_id
+                  valueComputed: (SELECT id FROM categories WHERE name='Science fiction')
+        - insert:
+            tableName: books_categories
+            columns:
+              - column:
+                  name: book_id
+                  valueComputed: (SELECT id FROM books WHERE title='Clean Code')
+              - column:
+                  name: category_id
+                  valueComputed: (SELECT id FROM categories WHERE name='Programming')
