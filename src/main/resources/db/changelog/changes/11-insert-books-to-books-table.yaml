@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-books-to-books-table
+      author: denys_okhrymovych
+      changes:
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: "Pride and Prejudice"
+              - column:
+                  name: author
+                  value: "Jane Austen"
+              - column:
+                  name: isbn
+                  value: "9781554814893"
+              - column:
+                  name: price
+                  value: 20.00
+              - column:
+                  name: description
+                  value: "Classic literature book"
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: "Dune"
+              - column:
+                  name: author
+                  value: "Frank Herbert"
+              - column:
+                  name: isbn
+                  value: "9780425266540"
+              - column:
+                  name: price
+                  value: 25.00
+              - column:
+                  name: description
+                  value: "Science Fiction Book"
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: "Clean Code"
+              - column:
+                  name: author
+                  value: "Robert C. Martin"
+              - column:
+                  name: isbn
+                  value: "9780132350884"
+              - column:
+                  name: price
+                  value: 30.00
+              - column:
+                  name: description
+                  value: "Programming Book"

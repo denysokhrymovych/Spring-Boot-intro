@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-categories-to-categories-table
+      author: denys_okhrymovych
+      changes:
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "Classic literature"
+              - column:
+                  name: description
+                  value: "Classic literature books"
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "Science fiction"
+              - column:
+                  name: description
+                  value: "Science fiction books"
+        - insert:
+            tableName: categories
+            columns:
+              - column:
+                  name: name
+                  value: "Programming"
+              - column:
+                  name: description
+                  value: "Programming books"
