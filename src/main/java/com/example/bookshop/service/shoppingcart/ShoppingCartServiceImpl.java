@@ -30,25 +30,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Transactional
     public ShoppingCartDto addToCart(AddToCartRequestDto requestDto, Long userId) {
         Long bookId = requestDto.getBookId();
-        Book book = bookRepository.findById(bookId)
-                .orElseThrow(() -> new EntityNotFoundException(
-                        "Book not found with id: " + bookId));
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException(
-                        "User not found with id: " + userId));
+        Book book = getBookById(bookId);
+        User user = getUserById(userId);
 
-        ShoppingCart shoppingCartFromDb = shoppingCartRepository.findByUserId(userId)
-                .orElseGet(() -> {
-                    ShoppingCart shoppingCart = new ShoppingCart();
-                    shoppingCart.setUser(user);
-                    shoppingCartRepository.save(shoppingCart);
-                    return shoppingCart;
-                });
+        ShoppingCart shoppingCartFromDb = getOrCreateShoppingCart(userId, user);
 
-        CartItem cartItem = new CartItem();
-        cartItem.setQuantity(requestDto.getQuantity());
-        cartItem.setBook(book);
-        cartItem.setShoppingCart(shoppingCartFromDb);
+        CartItem cartItem = createCartItem(requestDto, book, shoppingCartFromDb);
         cartItemRepository.save(cartItem);
         shoppingCartFromDb.getCartItems().add(cartItem);
 
@@ -64,6 +51,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
+    @Transactional
     public ShoppingCartDto updateCartItemQuantity(
             Long cartItemId, UpdateCartItemRequestDto requestDto) {
         CartItem cartItem = cartItemRepository.findById(cartItemId)
@@ -77,5 +65,36 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public void deleteCartItemById(Long cartId) {
         cartItemRepository.deleteById(cartId);
+    }
+
+    private Book getBookById(Long bookId) {
+        return bookRepository.findById(bookId)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Book not found with id: " + bookId));
+    }
+
+    private User getUserById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "User not found with id: " + userId));
+    }
+
+    private ShoppingCart getOrCreateShoppingCart(Long userId, User user) {
+        return shoppingCartRepository.findByUserId(userId)
+                .orElseGet(() -> {
+                    ShoppingCart shoppingCart = new ShoppingCart();
+                    shoppingCart.setUser(user);
+                    shoppingCartRepository.save(shoppingCart);
+                    return shoppingCart;
+                });
+    }
+
+    private CartItem createCartItem(
+            AddToCartRequestDto requestDto, Book book, ShoppingCart shoppingCart) {
+        CartItem cartItem = new CartItem();
+        cartItem.setQuantity(requestDto.getQuantity());
+        cartItem.setBook(book);
+        cartItem.setShoppingCart(shoppingCart);
+        return cartItem;
     }
 }
