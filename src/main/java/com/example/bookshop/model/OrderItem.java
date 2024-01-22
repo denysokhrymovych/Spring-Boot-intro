@@ -36,7 +36,7 @@ public class OrderItem {
     @EqualsAndHashCode.Exclude
     private Book book;
     @Column(nullable = false)
-    private int quantity;
+    private Integer quantity;
     @Column(nullable = false)
     private BigDecimal price;
     @Column(nullable = false)

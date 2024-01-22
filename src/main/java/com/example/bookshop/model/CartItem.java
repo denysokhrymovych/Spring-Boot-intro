@@ -35,7 +35,7 @@ public class CartItem {
     @JoinColumn(name = "book_id")
     private Book book;
     @Column(nullable = false)
-    private int quantity;
+    private Integer quantity;
     @Column(nullable = false)
     private boolean isDeleted = false;
 }
