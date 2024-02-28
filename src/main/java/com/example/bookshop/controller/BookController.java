@@ -1,6 +1,7 @@
 package com.example.bookshop.controller;
 
 import com.example.bookshop.dto.book.BookDto;
+import com.example.bookshop.dto.book.BookSearchParametersDto;
 import com.example.bookshop.dto.book.CreateBookRequestDto;
 import com.example.bookshop.service.book.BookService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -66,5 +67,13 @@ public class BookController {
     @Operation(summary = "Delete a book", description = "Delete a book")
     public void deleteBook(@PathVariable Long id) {
         bookService.deleteBook(id);
+    }
+
+    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
+    @GetMapping("/search")
+    @Operation(summary = "Search books by titles and authors",
+            description = "Get a list of books by titles and authors")
+    public List<BookDto> search(BookSearchParametersDto searchParameters) {
+        return bookService.search(searchParameters);
     }
 }
