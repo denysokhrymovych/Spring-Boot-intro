@@ -1,0 +1,1 @@
+insert into users (id, email, password, first_name, last_name, shipping_address) values (19, 'user999@gmail.com', '$2a$10$EM4q69yQnQavd1Kv6uoBY.iyso.7l18i0eAdxad.vdaAVjFv/f4jW', 'John', 'Doe', 'Lviv');
